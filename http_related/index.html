@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="hustcat" />
+    <title>Go语言学习：http编程</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link href="/feed/" rel="alternate" title="hustcat" type="application/atom+xml" />
+    <link rel="stylesheet" href="/media/css/style.css" />
+    <link rel="stylesheet" href="/media/css/highlight.css" />
+    <script type="text/javascript" src="/media/js/jquery-1.7.1.min.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="main" role="main">
+        <header>
+        <h1>Go语言学习：http编程</h1>
+        </header>
+        <nav>
+        <span><a title="网站首页" class="" href="/">首页</a></span>
+        <span><a title="文章分类" class="" href="/categories/">分类</a></span>
+        <span><a title="标签索引" class="" href="/tags/">标签</a></span>
+        <!--<span><a title="友情链接" class="" href="/links/">链接</a></span>-->
+        <span><a title="留言交流" class="" href="/guestbook/">留言</a></span>
+        <span><a title="关于站长" class="" href="/about/">关于</a></span>
+        <span><a title="种子订阅" class="" href="/feed/" target="_blank">订阅</a></span>
+        </nav>
+        <article class="content">
+        <section class="meta">
+<span class="time">
+  <time datetime="2014-11-04">2014-11-04</time>
+</span>
+
+ | 
+<span class="categories">
+  分类
+  
+  <a href="/categories/#编程语言" title="编程语言">编程语言</a>&nbsp;
+  
+</span>
+
+
+ | 
+<span class="tags">
+  标签
+  
+  <a href="/tags/#go" title="go">go</a>&nbsp;
+  
+</span>
+
+</section>
+<section class="post">
+<h2 id="示例">示例</h2>
+<p>Go语言的标准库对http编程提供了很多的支持，我们只要几行代码，就可以写一个简单的http server：</p>
+
+<figure class="highlight"><pre><code class="language-go" data-lang="go"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="code"><pre><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+	<span class="s">"io"</span>
+	<span class="s">"net/http"</span>
+	<span class="s">"log"</span>
+<span class="p">)</span>
+
+<span class="c">// hello world, the web server</span>
+<span class="k">func</span> <span class="n">HelloServer</span><span class="p">(</span><span class="n">w</span> <span class="n">http</span><span class="o">.</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="n">req</span> <span class="o">*</span><span class="n">http</span><span class="o">.</span><span class="n">Request</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">io</span><span class="o">.</span><span class="n">WriteString</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s">"hello, world!</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">http</span><span class="o">.</span><span class="n">HandleFunc</span><span class="p">(</span><span class="s">"/hello"</span><span class="p">,</span> <span class="n">HelloServer</span><span class="p">)</span>
+	<span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">(</span><span class="s">":12345"</span><span class="p">,</span> <span class="no">nil</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+		<span class="n">log</span><span class="o">.</span><span class="n">Fatal</span><span class="p">(</span><span class="s">"ListenAndServe: "</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>在浏览器中访问http://localhost:12345/hello，输出</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello, world!
+</code></pre></div></div>
+
+<h2 id="几个核心的函数和接口">几个核心的函数和接口</h2>
+<p>为了更加理解上面示例，有必要来看看背后的实现。先看函数ListenAndServe：</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">ListenAndServe</span><span class="p">(</span><span class="n">addr</span> <span class="kt">string</span><span class="p">,</span> <span class="n">handler</span> <span class="n">Handler</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="n">server</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">Server</span><span class="p">{</span><span class="n">Addr</span><span class="o">:</span> <span class="n">addr</span><span class="p">,</span> <span class="n">Handler</span><span class="o">:</span> <span class="n">handler</span><span class="p">}</span>
+	<span class="k">return</span> <span class="n">server</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>很简单，它只是调用Server.ListenAndServe而已。</p>
+
+<h2 id="server">Server</h2>
+<p>Server实现了一个服务程序的基本框架：</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// A Server defines parameters for running an HTTP server.</span>
+<span class="c">// The zero value for Server is a valid configuration.</span>
+<span class="k">type</span> <span class="n">Server</span> <span class="k">struct</span> <span class="p">{</span>
+	<span class="n">Addr</span>           <span class="kt">string</span>        <span class="c">// TCP address to listen on, ":http" if empty</span>
+	<span class="n">Handler</span>        <span class="n">Handler</span>       <span class="c">// handler to invoke, http.DefaultServeMux if nil</span>
+<span class="o">...</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="p">(</span><span class="n">srv</span> <span class="o">*</span><span class="n">Server</span><span class="p">)</span> <span class="n">ListenAndServe</span><span class="p">()</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="n">addr</span> <span class="o">:=</span> <span class="n">srv</span><span class="o">.</span><span class="n">Addr</span>
+	<span class="k">if</span> <span class="n">addr</span> <span class="o">==</span> <span class="s">""</span> <span class="p">{</span>
+		<span class="n">addr</span> <span class="o">=</span> <span class="s">":http"</span>
+	<span class="p">}</span>
+	<span class="n">ln</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">net</span><span class="o">.</span><span class="n">Listen</span><span class="p">(</span><span class="s">"tcp"</span><span class="p">,</span> <span class="n">addr</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">err</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">srv</span><span class="o">.</span><span class="n">Serve</span><span class="p">(</span><span class="n">tcpKeepAliveListener</span><span class="p">{</span><span class="n">ln</span><span class="o">.</span><span class="p">(</span><span class="o">*</span><span class="n">net</span><span class="o">.</span><span class="n">TCPListener</span><span class="p">)})</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="p">(</span><span class="n">srv</span> <span class="o">*</span><span class="n">Server</span><span class="p">)</span> <span class="n">Serve</span><span class="p">(</span><span class="n">l</span> <span class="n">net</span><span class="o">.</span><span class="n">Listener</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="k">defer</span> <span class="n">l</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
+	<span class="k">var</span> <span class="n">tempDelay</span> <span class="n">time</span><span class="o">.</span><span class="n">Duration</span> <span class="c">// how long to sleep on accept failure</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="n">rw</span><span class="p">,</span> <span class="n">e</span> <span class="o">:=</span> <span class="n">l</span><span class="o">.</span><span class="n">Accept</span><span class="p">()</span>
+		<span class="k">if</span> <span class="n">e</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="n">ne</span><span class="p">,</span> <span class="n">ok</span> <span class="o">:=</span> <span class="n">e</span><span class="o">.</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">Error</span><span class="p">);</span> <span class="n">ok</span> <span class="o">&amp;&amp;</span> <span class="n">ne</span><span class="o">.</span><span class="n">Temporary</span><span class="p">()</span> <span class="p">{</span>
+				<span class="k">if</span> <span class="n">tempDelay</span> <span class="o">==</span> <span class="m">0</span> <span class="p">{</span>
+					<span class="n">tempDelay</span> <span class="o">=</span> <span class="m">5</span> <span class="o">*</span> <span class="n">time</span><span class="o">.</span><span class="n">Millisecond</span>
+				<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+					<span class="n">tempDelay</span> <span class="o">*=</span> <span class="m">2</span>
+				<span class="p">}</span>
+				<span class="k">if</span> <span class="n">max</span> <span class="o">:=</span> <span class="m">1</span> <span class="o">*</span> <span class="n">time</span><span class="o">.</span><span class="n">Second</span><span class="p">;</span> <span class="n">tempDelay</span> <span class="o">&gt;</span> <span class="n">max</span> <span class="p">{</span>
+					<span class="n">tempDelay</span> <span class="o">=</span> <span class="n">max</span>
+				<span class="p">}</span>
+				<span class="n">srv</span><span class="o">.</span><span class="n">logf</span><span class="p">(</span><span class="s">"http: Accept error: %v; retrying in %v"</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">tempDelay</span><span class="p">)</span>
+				<span class="n">time</span><span class="o">.</span><span class="n">Sleep</span><span class="p">(</span><span class="n">tempDelay</span><span class="p">)</span>
+				<span class="k">continue</span>
+			<span class="p">}</span>
+			<span class="k">return</span> <span class="n">e</span>
+		<span class="p">}</span>
+		<span class="n">tempDelay</span> <span class="o">=</span> <span class="m">0</span>
+		<span class="n">c</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">srv</span><span class="o">.</span><span class="n">newConn</span><span class="p">(</span><span class="n">rw</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+			<span class="k">continue</span>
+		<span class="p">}</span>
+		<span class="n">c</span><span class="o">.</span><span class="n">setState</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">rwc</span><span class="p">,</span> <span class="n">StateNew</span><span class="p">)</span> <span class="c">// before Serve can return</span>
+		<span class="k">go</span> <span class="n">c</span><span class="o">.</span><span class="n">serve</span><span class="p">()</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="c">// Serve a new connection.</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">c</span> <span class="o">*</span><span class="n">conn</span><span class="p">)</span> <span class="n">serve</span><span class="p">()</span> <span class="p">{</span>
+<span class="o">...</span>
+		<span class="n">serverHandler</span><span class="p">{</span><span class="n">c</span><span class="o">.</span><span class="n">server</span><span class="p">}</span><span class="o">.</span><span class="n">ServeHTTP</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">req</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>每个连接由一个单独的goroutine进行处理。连接的处理逻辑交给serverHandler处理。</p>
+
+<h2 id="serverhandler">serverHandler</h2>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// serverHandler delegates to either the server's Handler or</span>
+<span class="c">// DefaultServeMux and also handles "OPTIONS *" requests.</span>
+<span class="k">type</span> <span class="n">serverHandler</span> <span class="k">struct</span> <span class="p">{</span>
+	<span class="n">srv</span> <span class="o">*</span><span class="n">Server</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="p">(</span><span class="n">sh</span> <span class="n">serverHandler</span><span class="p">)</span> <span class="n">ServeHTTP</span><span class="p">(</span><span class="n">rw</span> <span class="n">ResponseWriter</span><span class="p">,</span> <span class="n">req</span> <span class="o">*</span><span class="n">Request</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">handler</span> <span class="o">:=</span> <span class="n">sh</span><span class="o">.</span><span class="n">srv</span><span class="o">.</span><span class="n">Handler</span>
+	<span class="k">if</span> <span class="n">handler</span> <span class="o">==</span> <span class="no">nil</span> <span class="p">{</span>
+		<span class="n">handler</span> <span class="o">=</span> <span class="n">DefaultServeMux</span> <span class="c">//默认情况</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="n">req</span><span class="o">.</span><span class="n">RequestURI</span> <span class="o">==</span> <span class="s">"*"</span> <span class="o">&amp;&amp;</span> <span class="n">req</span><span class="o">.</span><span class="n">Method</span> <span class="o">==</span> <span class="s">"OPTIONS"</span> <span class="p">{</span>
+		<span class="n">handler</span> <span class="o">=</span> <span class="n">globalOptionsHandler</span><span class="p">{}</span>
+	<span class="p">}</span>
+	<span class="n">handler</span><span class="o">.</span><span class="n">ServeHTTP</span><span class="p">(</span><span class="n">rw</span><span class="p">,</span> <span class="n">req</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>DefaultServeMux是结构体ServeMux的实例，它根据请求的路径，将请求转发给相应的Handler。</p>
+
+<h2 id="servemux">ServeMux</h2>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">ServeMux</span> <span class="k">struct</span> <span class="p">{</span>
+	<span class="n">mu</span>    <span class="n">sync</span><span class="o">.</span><span class="n">RWMutex</span>
+	<span class="n">m</span>     <span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="n">muxEntry</span>  <span class="c">///pattern --&gt; muxEntry</span>
+	<span class="n">hosts</span> <span class="kt">bool</span> <span class="c">// whether any patterns contain hostnames</span>
+<span class="p">}</span>
+
+<span class="c">// ServeHTTP dispatches the request to the handler whose</span>
+<span class="c">// pattern most closely matches the request URL.</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">mux</span> <span class="o">*</span><span class="n">ServeMux</span><span class="p">)</span> <span class="n">ServeHTTP</span><span class="p">(</span><span class="n">w</span> <span class="n">ResponseWriter</span><span class="p">,</span> <span class="n">r</span> <span class="o">*</span><span class="n">Request</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">RequestURI</span> <span class="o">==</span> <span class="s">"*"</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">ProtoAtLeast</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">w</span><span class="o">.</span><span class="n">Header</span><span class="p">()</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="s">"Connection"</span><span class="p">,</span> <span class="s">"close"</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="n">w</span><span class="o">.</span><span class="n">WriteHeader</span><span class="p">(</span><span class="n">StatusBadRequest</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="n">h</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">mux</span><span class="o">.</span><span class="n">Handler</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+	<span class="n">h</span><span class="o">.</span><span class="n">ServeHTTP</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>ServeMux最终调用注册的Handler。</p>
+
+<p>在启动http server之前，我们需要对每个URI调用函数Handle或者HandleFunc注册一个Handler：</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Handle registers the handler for the given pattern</span>
+<span class="c">// in the DefaultServeMux.</span>
+<span class="c">// The documentation for ServeMux explains how patterns are matched.</span>
+<span class="k">func</span> <span class="n">Handle</span><span class="p">(</span><span class="n">pattern</span> <span class="kt">string</span><span class="p">,</span> <span class="n">handler</span> <span class="n">Handler</span><span class="p">)</span> <span class="p">{</span> <span class="n">DefaultServeMux</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="c">// HandleFunc registers the handler function for the given pattern</span>
+<span class="c">// in the DefaultServeMux.</span>
+<span class="c">// The documentation for ServeMux explains how patterns are matched.</span>
+<span class="k">func</span> <span class="n">HandleFunc</span><span class="p">(</span><span class="n">pattern</span> <span class="kt">string</span><span class="p">,</span> <span class="n">handler</span> <span class="k">func</span><span class="p">(</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="o">*</span><span class="n">Request</span><span class="p">))</span> <span class="p">{</span>
+	<span class="n">DefaultServeMux</span><span class="o">.</span><span class="n">HandleFunc</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>注册Handler:</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">HandlerFunc</span> <span class="k">func</span><span class="p">(</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="o">*</span><span class="n">Request</span><span class="p">)</span>
+
+<span class="c">// ServeHTTP calls f(w, r).</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">f</span> <span class="n">HandlerFunc</span><span class="p">)</span> <span class="n">ServeHTTP</span><span class="p">(</span><span class="n">w</span> <span class="n">ResponseWriter</span><span class="p">,</span> <span class="n">r</span> <span class="o">*</span><span class="n">Request</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">f</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c">// HandleFunc registers the handler function for the given pattern.</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">mux</span> <span class="o">*</span><span class="n">ServeMux</span><span class="p">)</span> <span class="n">HandleFunc</span><span class="p">(</span><span class="n">pattern</span> <span class="kt">string</span><span class="p">,</span> <span class="n">handler</span> <span class="k">func</span><span class="p">(</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="o">*</span><span class="n">Request</span><span class="p">))</span> <span class="p">{</span>
+	<span class="n">mux</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">HandlerFunc</span><span class="p">(</span><span class="n">handler</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>实际上ServeMux.HandleFunc最终也转换成对ServeMux.Handle的调用。</p>
+
+<h2 id="handler">Handler</h2>
+<p>Handler是逻辑处理接口，它包含一个ServeHTTP方法，由业务实现该方法，并注册给http server。</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// ServeHTTP should write reply headers and data to the ResponseWriter</span>
+<span class="c">// and then return.  Returning signals that the request is finished</span>
+<span class="c">// and that the HTTP server can move on to the next request on</span>
+<span class="c">// the connection.</span>
+<span class="k">type</span> <span class="n">Handler</span> <span class="k">interface</span> <span class="p">{</span>
+	<span class="n">ServeHTTP</span><span class="p">(</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="o">*</span><span class="n">Request</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+
+</section>
+<section align="right">
+<br/>
+<span>
+	<a  href="/kubernetes-services/" class="pageNav"  >上一篇</a>
+	&nbsp;&nbsp;&nbsp;
+	<a  href="/kubernetes-add-rm-minion/" class="pageNav"  >下一篇</a>
+</span>
+</section>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js?move=0&amp;uid=2121774" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+
+	
+	<div class="ds-thread" />
+		
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"hustcat"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fc91691cf4004b194f7847896cca17dbb' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-56673760-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+        </article>
+      </div>
+
+    <footer>
+        <p>
+          <script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fc91691cf4004b194f7847896cca17dbb' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+          <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-56673760-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+        </p>
+        <p><small>
+            <a href="http://github.com/hustcat/hustcat.github.io/new/gh-pages/_posts" target="_blank" title="撰写文章">Po</a>wer<a href="http://github.com/hustcat/hustcat.github.io/edit/gh-pages/_posts/2014-11-04-http_server.md" target="_blank" title="编辑页面">ed</a> by <a href="http://jekyllrb.com" target="_blank">Jekyll</a> @ <a href="http://github.com/hustcat/hustcat.github.io" target="_blank" title="项目主页">GitHub</a>
+             | <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/cn/" target="_blank" title="许可协议">©</a> 2014 - 2020 <a href="/about/">hustcat</a>
+             | <a href="http://hustcat.cnblogs.com" target="_blank">@cnblogs</a>
+
+
+         </small></p>
+    </footer>
+
+    </div>
+  </body>
+</html>
