@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "hello jekyll!"
-date:   2020-10-11 19:36
+title:  "一辆汽车里的芯片"
+date:   2020-11-10 17:29
 categories: jekyll
 tags: jekyll
 excerpt: The templat has been doownloaded long ago, this is my first time to write the blog.
