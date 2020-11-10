@@ -1,15 +1,15 @@
 ---
 layout: post
-title:  "一架四旋翼里面的芯片"
+title:  "产品之芯-无人机里的芯片"
 date:   2020-11-10 17:41
-categories: XX里面的芯片
-tags: 芯片杂记
-excerpt: The templat has been doownloaded long ago, this is my first time to write the blog.
+categories: 产品之芯
+tags: 芯片
+excerpt: 无人机和监控摄像头里有哪些芯片
 mathjax: true
 ---
 
-[//]：某D姓公司的无人机（Drone）在世界范围内广受好评，来看看一架四旋翼无人机里面都有哪些芯片。
-大疆（DJI）最近出了一款无人机。
+//某D姓公司的无人机（Drone）在世界范围内广受好评，来看看一架四旋翼无人机里面都有哪些芯片。
+//大疆（DJI）最近出了一款无人机。
 深度学习（Deep learning）在图像（视频）领域的成功显而易见地带动了图像传感器(image sensor) 和 强运算芯片（GPU，AI-ASIC）的需求增长。
 相关软硬件的成熟结合在消费电子领域的体现包括了监控摄像头和无人机的爆炸增长，当然增长的具体原因必然也不只是人工智能的大火。
 

@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "一辆汽车里的芯片"
+title:  "产品之芯-汽车里的芯片"
 date:   2020-11-10 17:29
-categories: XX里面的芯片 - 系列
-tags: 芯片杂记
-excerpt: The templat has been doownloaded long ago, this is my first time to write the blog.
+categories: 产品之芯
+tags: 芯片
+excerpt: 电子系统在汽车里扮演愈发重要的角色
 mathjax: true
 ---
 
