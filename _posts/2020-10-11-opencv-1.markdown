@@ -1,0 +1,25 @@
+---
+layout: post
+title:  "A small VR project"
+date:   2020-10-11 18:05
+categories: video process
+tags: openCV
+excerpt: A small VR project written in C++ using openCV
+mathjax: true
+---
+
+Keywords: Virtual object alignment in video stream
+In the last few weeks, I had been working with a close friend to finish a small VR project.
+The project is about the automatic alignment of 2D virtual object to the straight edges in a realtime stream.
+OpenCV APIs from several modules are intensively used in this project,including video, highgui...
+
+
+
+Block Mathjax 
+
+$$
+f(x) = ax + b
+$$
+
+Inline Mathjax $a \neq b$
+
