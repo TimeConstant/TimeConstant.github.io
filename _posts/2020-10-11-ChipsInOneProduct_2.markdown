@@ -9,4 +9,5 @@ mathjax: true
 ---
 
 吉利汽车董事长李书福先生讲过，一辆汽车就是四个轮子加一个沙发。
+Electronic system = ADAS + IVI + ECU
 
