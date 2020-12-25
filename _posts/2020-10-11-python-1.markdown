@@ -1,0 +1,13 @@
+---
+layout: post
+title:  "Experiences with Python"
+date:   2020-11-11 14:21
+categories: modules
+tags: python
+excerpt: Recall what I did using the convinient programming language - python
+mathjax: true
+---
+
+
+Numpy is the first python module I worked with when I start to learn this language. I used conda to configure the development env at that time, then I switch to Pycharm later on.
+Few more packages I had experiences with including matplotlib, pyQt, keras, scikit-learn, (sth. used for XML parsing), Flask, cv2, env, etc.
