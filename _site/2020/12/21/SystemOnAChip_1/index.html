@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>hello jekyll!</title>
-    <meta name="description" content="The templat has been doownloaded long ago, this is my first time to write the blog.">
+    <title>Apple M1 Processor: What is SoC?</title>
+    <meta name="description" content="Design and test of system-on-a-chip">
 
     <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
     <link rel="icon" href="/favicon.ico?" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_8v3czwksspqlg14i.css">
     <link rel="stylesheet" href="/css/main.css ">
-    <link rel="canonical" href="http://localhost:4000/2020/10/11/my-first-blog-with-jekyll/">
+    <link rel="canonical" href="http://localhost:4000/2020/12/21/SystemOnAChip_1/">
     <link rel="alternate" type="application/rss+xml" title="Tao" href="http://localhost:4000/feed.xml ">
 
 
@@ -100,11 +100,11 @@
 
         <div class="page clearfix" post>
     <div class="left">
-        <h1>hello jekyll!</h1>
+        <h1>Apple M1 Processor: What is SoC?</h1>
         <div class="label">
 
             <div class="label-card">
-                <i class="fa fa-calendar"></i>2020-10-11
+                <i class="fa fa-calendar"></i>2020-12-21
             </div>
 
             <div class="label-card">
@@ -124,7 +124,7 @@
   <i class="fa fa-th-list"></i>
   
     
-        <a href="/category/#jekyll" title="Category: jekyll" rel="category">jekyll</a>
+        <a href="/category/#SoC" title="Category: SoC" rel="category">SoC</a>
     
   
 
@@ -141,8 +141,8 @@
   <i class="fa fa-tags"></i>
   
     
-        <!--a href="/tag/#jekyll" title="Tag: jekyll" rel="tag">jekyll</a-->
-        <a href="/tag/#jekyll" title="Tag: jekyll" rel="tag">jekyll</a>
+        <!--a href="/tag/#%E8%8A%AF%E7%89%87" title="Tag: 芯片" rel="tag">芯片</a-->
+        <a href="/tag/#芯片" title="Tag: 芯片" rel="tag">芯片</a>
     
   
 
@@ -153,22 +153,46 @@
         </div>
         <hr>
         <article itemscope itemtype="http://schema.org/BlogPosting">
-        <p>Keywords: Operating system</p>
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
-  <span class="nb">puts</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
-<span class="k">end</span>
-<span class="n">print_hi</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span>
-<span class="c1">#=&gt; prints 'Hi, Tom' to STDOUT.</span>
-</code></pre></div></div>
+        <p>When I chatted with my friends, we talked about the M1 processor that recently launched by Apple.
+I was asked what is a SoC, since it’s mentioned in many of the technical reports and many people who doesn’t works in IC industry may not know it well.</p>
 
-<p>Check out the <a href="http://jekyllrb.com">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://github.com/jekyll/jekyll-help">Jekyll’s dedicated Help repository</a>.</p>
+<p>During master study, I did attend the lecture with a title exactly named as ‘System-on-Chip’. The content is however a bit general or shadow to my current perspective.
+The lecturer had focused mostly on the the performance bottleneck of SoC, namely on-chip communication and memory architecture. Communicationa and memory are obviously important, 
+but I believe for the students who will go and work in industry instead of academic institutes, it would be more interesting to have an overview of SoC design, test and manufacture.
+Then I found this publicly available lecture notes from Andreas Gerstlauer, University of TEXAS at Austin.</p>
 
-<p>Block Mathjax</p>
+<p>System Architecture:
+*processing element(PEs):
+	Processors:
+		General purpose, programmable
+		DSP
+		Application-specific instruction set processor(ASIP)
+		Custom hardware processors
+		Intellectual Property(IP)
+	Memories
+*Communication elements:
+	Transducers, bus bridges
+	I/O peripherals
+Busses:
+Application mapping:
+	Allocation
+	Partitioning
+	Scheduling</p>
 
-\[f(x) = ax + b\]
+<p>re-active programming -&gt; programming paradiagm</p>
 
-<p>Inline Mathjax $a \neq b$</p>
+<ol>
+  <li>a</li>
+  <li>b</li>
+  <li>c</li>
+</ol>
 
+<p>List:</p>
+<ul>
+  <li>a</li>
+  <li>b</li>
+  <li>c</li>
+</ul>
 
         </article>
         <hr>
@@ -207,12 +231,49 @@
             
                 
                     
+                        
+                        <h2 id="similar_posts">Similar Posts</h2>
+                        <ul>
+                        
+                        <li class="relatedPost">
+                            <a href="/2020/11/10/ChipsInOneProduct_Intro/">产品之芯 系列序言
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
                 
             
         
             
             
                 
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="/2020/11/10/ChipsInOneProduct_1/">产品之芯-无人机里的芯片
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="/2020/11/10/ChipsInOneProduct_2/">产品之芯-汽车里的芯片
+                            
+                            </a>
+                        </li>
+                        
+                        
                     
                 
             
@@ -238,25 +299,20 @@
                 
             
         
-            
-            
-                
-                    
-                
-            
         
+            </ul>
         
 
         <div class="post-recent">
     <div class="pre">
         
-        <p><strong>上一篇</strong> <a href="/2020/10/11/opencv-2/">Install openCV on raspberry PI</a></p>
+        <p><strong>上一篇</strong> <a href="/2020/11/12/DataStructureAndAlgorithm-1/">Notes on data structures and algorithms</a></p>
         
     </div>
     <div class="nex">
 
         
-        <p><strong>下一篇</strong> <a href="/2020/11/10/ChipsInOneProduct_2/">产品之芯-汽车里的芯片</a></p>
+        <p><strong>下一篇</strong> <a href="/2020/12/25/C&C++_Programming/">C and C++ programming notes</a></p>
         
     </div>
 </div>
@@ -280,6 +336,8 @@
                     Content
                 </div>
                 <ul id="content-side" class="content-ul">
+                    
+                    <li><a href="#similar_posts">Similar Posts</a></li>
                     
                     <li><a href="#comments">Comments</a></li>
                 </ul>

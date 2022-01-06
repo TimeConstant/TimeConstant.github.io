@@ -18,7 +18,7 @@ but I believe for the students who will go and work in industry instead of acade
 Then I found this publicly available lecture notes from Andreas Gerstlauer, University of TEXAS at Austin.
 
 System Architecture:
-processing element(PEs):
+*processing element(PEs):
 	Processors:
 		General purpose, programmable
 		DSP
@@ -26,7 +26,7 @@ processing element(PEs):
 		Custom hardware processors
 		Intellectual Property(IP)
 	Memories
-Communication elements:
+*Communication elements:
 	Transducers, bus bridges
 	I/O peripherals
 Busses:
@@ -36,3 +36,12 @@ Application mapping:
 	Scheduling
 	
 re-active programming -> programming paradiagm
+
+1. a
+2. b
+3. c
+
+List:
+* a
+* b
+* c

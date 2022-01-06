@@ -16,3 +16,8 @@ mathjax: true
 无人机的整体复杂度肯定是要高于监控（相机）的，至少无人机需要极优异的运动控制，而一般情况下的监控就是固定安装在某一位置。
 两者的共同之处，最简化来看，大致就是由相机（光学器件+图像传感器）、运算芯片（用于跑图像处理算法），通信芯片（用于和服务端连接）。
 
+$$
+camera system = optic components + motor + cmos image sensor
+$$
+
+Interestingly, the system architecture of DRAM is very similar to CMOS image sensor.

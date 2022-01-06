@@ -1,0 +1,24 @@
+I",<p>One famous saying of Einstein, I don’t remember it exactly: We should start from simple questions, but not too simple ones.
+Recently, when I’ve been learning the design flow of System-on-chip and hardware description languages, I noticed the concept of programming paradiagm.
+I know from there that VHDL belongs to re-active languages.</p>
+
+<p>Imperative:
+	procedural: C
+	object-oriented: C++</p>
+
+<p>Declarative:
+	functional:
+	logic:
+	Dataflow:
+		reactive: VHDL</p>
+
+<p>And I learned from Stanford open courses that one program written in C(Procedural) and C++ (object-oriented) separately, will however yield similar mmachine code in the end.
+This brings up my interests in reviewing my C and C++ knowledge.</p>
+
+<ol>
+  <li>multi-dimentional array (data type can be any numericals, such as int, float, double)   —&gt; application in signal processing, numerical analysis</li>
+  <li>string + Regular Expression.   								—&gt; application in web server or any file based system</li>
+  <li>compound data type 											—&gt; database, entry</li>
+</ol>
+
+:ET

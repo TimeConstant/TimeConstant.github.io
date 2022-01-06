@@ -5,21 +5,119 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 10 Nov 2020 16:16:27 +0000</pubDate>
-    <lastBuildDate>Tue, 10 Nov 2020 16:16:27 +0000</lastBuildDate>
+    <pubDate>Wed, 30 Dec 2020 22:20:45 +0000</pubDate>
+    <lastBuildDate>Wed, 30 Dec 2020 22:20:45 +0000</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
     
       <item>
-        <title>hello jekyll!</title>
-        <description>The templat has been doownloaded long ago, this is my first time to write the blog.</description>
-        <pubDate>Sun, 11 Oct 2020 19:36:00 +0100</pubDate>
-        <link>http://localhost:4000/2020/10/11/my-second-blog-with-jekyll/</link>
-        <guid isPermaLink="true">http://localhost:4000/2020/10/11/my-second-blog-with-jekyll/</guid>
+        <title>C and C++ programming notes</title>
+        <description>Programming notes of C and C++</description>
+        <pubDate>Fri, 25 Dec 2020 12:28:00 +0000</pubDate>
+        <link>http://localhost:4000/2020/12/25/C&C++_Programming/</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/12/25/C&C++_Programming/</guid>
         
-        <category>jekyll</category>
+        <category>Programming</category>
         
         
-        <category>jekyll</category>
+        <category>C/C++</category>
+        
+      </item>
+    
+      <item>
+        <title>Apple M1 Processor: What is SoC?</title>
+        <description>Design and test of system-on-a-chip</description>
+        <pubDate>Mon, 21 Dec 2020 07:41:00 +0000</pubDate>
+        <link>http://localhost:4000/2020/12/21/SystemOnAChip_1/</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/12/21/SystemOnAChip_1/</guid>
+        
+        <category>芯片</category>
+        
+        
+        <category>SoC</category>
+        
+      </item>
+    
+      <item>
+        <title>Notes on data structures and algorithms</title>
+        <description>No idea of what to write here</description>
+        <pubDate>Thu, 12 Nov 2020 10:20:00 +0000</pubDate>
+        <link>http://localhost:4000/2020/11/12/DataStructureAndAlgorithm-1/</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/11/12/DataStructureAndAlgorithm-1/</guid>
+        
+        <category>algorithm</category>
+        
+        
+        <category>classical</category>
+        
+      </item>
+    
+      <item>
+        <title>Experiences with Python</title>
+        <description>Recall what I did using the convinient programming language - python</description>
+        <pubDate>Wed, 11 Nov 2020 14:21:00 +0000</pubDate>
+        <link>http://localhost:4000/2020/11/11/python-1/</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/11/11/python-1/</guid>
+        
+        <category>python</category>
+        
+        
+        <category>modules</category>
+        
+      </item>
+    
+      <item>
+        <title>How to discribe the data</title>
+        <description>summerize the ways to present the data</description>
+        <pubDate>Wed, 11 Nov 2020 14:21:00 +0000</pubDate>
+        <link>http://localhost:4000/2020/11/11/HowToDiscribeData-1/</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/11/11/HowToDiscribeData-1/</guid>
+        
+        <category>data</category>
+        
+        
+        <category>discription</category>
+        
+      </item>
+    
+      <item>
+        <title>产品之芯 系列序言</title>
+        <description>一瞥隐藏在寻常工业产品中的芯片（集成电路）</description>
+        <pubDate>Tue, 10 Nov 2020 22:39:00 +0000</pubDate>
+        <link>http://localhost:4000/2020/11/10/ChipsInOneProduct_Intro/</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/11/10/ChipsInOneProduct_Intro/</guid>
+        
+        <category>芯片</category>
+        
+        
+        <category>产品之芯</category>
+        
+      </item>
+    
+      <item>
+        <title>产品之芯-无人机里的芯片</title>
+        <description>无人机和监控摄像头里有哪些芯片</description>
+        <pubDate>Tue, 10 Nov 2020 17:41:00 +0000</pubDate>
+        <link>http://localhost:4000/2020/11/10/ChipsInOneProduct_1/</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/11/10/ChipsInOneProduct_1/</guid>
+        
+        <category>芯片</category>
+        
+        
+        <category>产品之芯</category>
+        
+      </item>
+    
+      <item>
+        <title>产品之芯-汽车里的芯片</title>
+        <description>电子系统在汽车里扮演愈发重要的角色</description>
+        <pubDate>Tue, 10 Nov 2020 17:29:00 +0000</pubDate>
+        <link>http://localhost:4000/2020/11/10/ChipsInOneProduct_2/</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/11/10/ChipsInOneProduct_2/</guid>
+        
+        <category>芯片</category>
+        
+        
+        <category>产品之芯</category>
         
       </item>
     
@@ -34,6 +132,22 @@
         
         
         <category>jekyll</category>
+        
+      </item>
+    
+      <item>
+        <title>Install openCV on raspberry PI</title>
+        <description>How to install opencv on raspberry PI</description>
+        <pubDate>Sun, 11 Oct 2020 18:20:00 +0100</pubDate>
+        <link>http://localhost:4000/2020/10/11/opencv-2/</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/10/11/opencv-2/</guid>
+        
+        <category>openCV</category>
+        
+        
+        <category>video</category>
+        
+        <category>process</category>
         
       </item>
     

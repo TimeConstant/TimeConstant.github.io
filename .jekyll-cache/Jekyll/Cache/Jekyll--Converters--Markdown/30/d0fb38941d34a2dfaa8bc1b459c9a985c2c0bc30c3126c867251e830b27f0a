@@ -1,0 +1,12 @@
+I"²<p>Keywords: Virtual object alignment in video stream
+In the last few weeks, I had been working with a close friend to finish a small VR project.
+The project is about the automatic alignment of 2D virtual object to the straight edges in a realtime stream.
+OpenCV APIs from several modules are intensively used in this project,including video, highguiâ€¦</p>
+
+<p>Block Mathjax</p>
+
+\[f(x) = ax + b\]
+
+<p>Inline Mathjax $a \neq b$</p>
+
+:ET

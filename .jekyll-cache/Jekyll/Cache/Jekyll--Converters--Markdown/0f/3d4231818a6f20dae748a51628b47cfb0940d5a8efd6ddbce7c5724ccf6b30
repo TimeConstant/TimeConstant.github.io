@@ -1,0 +1,12 @@
+I"C<p>//某D姓公司的无人机（Drone）在世界范围内广受好评，来看看一架四旋翼无人机里面都有哪些芯片。
+//大疆（DJI）最近出了一款无人机。
+深度学习（Deep learning）在图像（视频）领域的成功显而易见地带动了图像传感器(image sensor) 和 强运算芯片（GPU，AI-ASIC）的需求增长。
+相关软硬件的成熟结合在消费电子领域的体现包括了监控摄像头和无人机的爆炸增长，当然增长的具体原因必然也不只是人工智能的大火。</p>
+
+<p>无人机的整体复杂度肯定是要高于监控（相机）的，至少无人机需要极优异的运动控制，而一般情况下的监控就是固定安装在某一位置。
+两者的共同之处，最简化来看，大致就是由相机（光学器件+图像传感器）、运算芯片（用于跑图像处理算法），通信芯片（用于和服务端连接）。</p>
+
+\[camera system = optic components + motor + cmos image sensor\]
+
+<p>Interestingly, the system architecture of DRAM is very similar to CMOS image sensor.</p>
+:ET
